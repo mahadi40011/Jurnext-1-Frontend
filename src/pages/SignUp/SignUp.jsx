@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
-import { imageUpload, setOrUpdateUser } from "../../utils";
+import { imageUpload, saveOrUpdateUser } from "../../utils";
 
 const SignUp = () => {
   const {
@@ -41,7 +41,7 @@ const SignUp = () => {
       await updateUserProfile(name, imageURL);
 
       //Set or Update user in Database
-      await setOrUpdateUser({ name, email, image: imageURL });
+      await saveOrUpdateUser({ name, email, image: imageURL });
 
       navigate(from, { replace: true });
       toast.success("Signup Successful");
@@ -59,7 +59,7 @@ const SignUp = () => {
       //User Registration using google
       const { user } = await signInWithGoogle();
 
-      await setOrUpdateUser({
+      await saveOrUpdateUser({
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,
