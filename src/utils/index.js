@@ -13,8 +13,8 @@ export const imageUpload = async (imageData) => {
   return data?.data?.display_url;
 };
 
-//Set or Update user in Database
-export const setOrUpdateUser = async (userData) => {
+//Save or Update user in Database
+export const saveOrUpdateUser = async (userData) => {
   const { data } = await axios.post(
     `${import.meta.env.VITE_SERVER_URL}/user`,
     userData

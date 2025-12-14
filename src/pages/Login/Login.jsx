@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
-import { setOrUpdateUser } from "../../utils";
+import { saveOrUpdateUser } from "../../utils";
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading, user, setLoading } = useAuth();
@@ -31,7 +31,7 @@ const Login = () => {
       //User Login
       const { user } = await signIn(email, password);
 
-      await setOrUpdateUser({
+      await saveOrUpdateUser({
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,
@@ -49,11 +49,12 @@ const Login = () => {
   // Handle Google Signin
   const handleGoogleSignIn = async () => {
     setLoading(true);
+
     try {
       //User Registration using google
       const { user } = await signInWithGoogle();
 
-      await setOrUpdateUser({
+      await saveOrUpdateUser({
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,
@@ -67,6 +68,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-white">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
