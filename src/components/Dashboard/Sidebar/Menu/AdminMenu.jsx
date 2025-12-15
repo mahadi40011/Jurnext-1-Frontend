@@ -2,10 +2,14 @@ import { FaUsersGear } from "react-icons/fa6";
 import MenuItem from "../../../Shared/MenuItem";
 import { BsFillTicketPerforatedFill } from "react-icons/bs";
 import { MdAirplaneTicket } from "react-icons/md";
+import { IoHome } from "react-icons/io5";
+import { FaTicketAlt } from "react-icons/fa";
 
 const AdminMenu = () => {
   return (
     <>
+      <MenuItem label="Home" address="/" icon={IoHome} />
+      <MenuItem label="All Ticket" address="/all-ticket" icon={FaTicketAlt} />
       <MenuItem
         icon={FaUsersGear}
         label="Manage Users"

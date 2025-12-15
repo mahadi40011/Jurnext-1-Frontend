@@ -3,16 +3,24 @@ import { ImUserCheck } from "react-icons/im";
 import { TbBrandBooking } from "react-icons/tb";
 import { FcStatistics } from "react-icons/fc";
 import MenuItem from "../../../Shared/MenuItem";
+import { IoHomeOutline } from "react-icons/io5";
+import { FaTicketAlt } from "react-icons/fa";
 
 const VendorMenu = () => {
   return (
     <>
+      <MenuItem label="Home" address="/" icon={IoHomeOutline} />
+      <MenuItem label="All Ticket" address="/all-ticket" icon={FaTicketAlt} />
       <MenuItem
         icon={FcStatistics}
         label="Revenue Overview"
         address="revenue-overview"
       />
-      <MenuItem icon={LuTicketPlus} label="Add Ticket" address="/dashboard/add-ticket" />
+      <MenuItem
+        icon={LuTicketPlus}
+        label="Add Ticket"
+        address="/dashboard/add-ticket"
+      />
       <MenuItem
         icon={ImUserCheck}
         label="My Added Ticket"

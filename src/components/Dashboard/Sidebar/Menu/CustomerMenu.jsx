@@ -1,10 +1,13 @@
 import { GiTakeMyMoney } from "react-icons/gi";
-import { IoBookmarks } from "react-icons/io5";
+import { IoBookmarks, IoHome } from "react-icons/io5";
 import MenuItem from "../../../Shared/MenuItem";
+import { FaTicketAlt } from "react-icons/fa";
 
 const CustomerMenu = () => {
   return (
     <>
+      <MenuItem label="Home" address="/" icon={IoHome} />
+      <MenuItem label="All Ticket" address="/all-ticket" icon={FaTicketAlt} />
       <MenuItem
         icon={IoBookmarks}
         label="My Booked Ticket"
