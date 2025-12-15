@@ -11,6 +11,7 @@ import { BsGraphUp } from 'react-icons/bs'
 // User Menu
 import MenuItem from '../../Shared/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
+import VendorMenu from './Menu/VendorMenu'
 // import SellerMenu from './Menu/SellerMenu'
 // import CustomerMenu from './Menu/CustomerMenu'
 // import useRole from '../../../hooks/useRole'
@@ -76,7 +77,8 @@ const Sidebar = () => {
                   address="/dashboard"
                 />
                 {/* Role-Based Menu */}
-                <AdminMenu/>
+                <AdminMenu />
+                <VendorMenu/>
                 {/* {role === "customer" && <CustomerMenu />}
                 {role === "seller" && <SellerMenu />}
                 {role === "admin" && <AdminMenu />} */}
