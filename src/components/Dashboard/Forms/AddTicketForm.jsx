@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 
@@ -10,6 +10,7 @@ const AddTicketForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -17,19 +18,14 @@ const AddTicketForm = () => {
     console.log("Ticket Data:", data);
   };
 
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="bg-white p-6 rounded-xl shadow-md"
     >
-      <h2 className="md:text-3xl text-2xl text-center md:text-start font-semibold md:font-bold mb-6">Add Ticket</h2>
+      <h2 className="md:text-3xl text-2xl text-center md:text-start font-semibold md:font-bold mb-6">
+        Add Ticket
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Ticket Title */}
@@ -187,60 +183,63 @@ const AddTicketForm = () => {
         </div>
 
         {/* Ticket Image */}
-        <div className="row-span-2">
-          <label className="label">Ticket Image</label>
+        <Controller
+          name="image"
+          control={control}
+          rules={{ required: "Image is required" }}
+          render={({ field }) => (
+            <div className="relative w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  field.onChange(file); // RHF value update
+                  if (file) setPreview(URL.createObjectURL(file)); // preview
+                }}
+                className="hidden"
+                id="ticketImage"
+              />
 
-          <div className="relative w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-lime-500 transition">
-            {/* Hidden Input */}
-            <input
-              type="file"
-              accept="image/*"
-              {...register("image", { required: "Image is required" })}
-              onChange={handleImage}
-              className="hidden"
-              id="ticketImage"
-            />
-
-            {/* Upload Area */}
-            <label
-              htmlFor="ticketImage"
-              className="cursor-pointer flex flex-col items-center justify-center gap-1"
-            >
-              {!preview ? (
-                <>
-                  <div className="w-8 h-8 flex justify-center items-center">
-                    <FaCamera size={24} color="" />
+              <label
+                htmlFor="ticketImage"
+                className="cursor-pointer flex flex-col items-center justify-center gap-1"
+              >
+                {!preview ? (
+                  <>
+                    <div className="w-8 h-8 flex justify-center items-center">
+                      <FaCamera size={24} />
+                    </div>
+                    <p className="text-sm font-medium">Click to upload image</p>
+                    <p className="text-xs text-gray-500">JPG, PNG up to 5MB</p>
+                  </>
+                ) : (
+                  <div className="relative w-full">
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="h-32 w-full object-cover rounded-md"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPreview(null);
+                        field.onChange(null); // remove file from form
+                        document.getElementById("ticketImage").value = "";
+                      }}
+                      className="absolute top-2 right-2 bg-red-500 text-white rounded-lg px-2 py-1 hover:bg-red-600 transition"
+                    >
+                      ✕
+                    </button>
                   </div>
-                  <p className="text-sm font-medium">Click to upload image</p>
-                  <p className="text-xs text-gray-500">JPG, PNG up to 5MB</p>
-                </>
-              ) : (
-                <div className="relative w-full">
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    className="h-32 w-full object-cover rounded-md"
-                  />
-
-                  {/* Remove Button */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setPreview(null);
-                      document.getElementById("ticketImage").value = "";
-                    }}
-                    className="absolute top-2 right-2 bg-red-500 text-white rounded-lg px-2 py-1 hover:bg-red-600 transition"
-                  >
-                    ✕
-                  </button>
-                </div>
-              )}
-            </label>
-          </div>
-          {errors?.image && <p className="error">{errors.image.message}</p>}
-        </div>
-
+                )}
+              </label>
+            </div>
+          )}
+        />
+        {errors?.image && (
+          <p className="text-sm text-red-500 mt-1">{errors.image.message}</p>
+        )}
         {/* Perks */}
         <div className="lg:col-span-2">
           <label className="label mb-2 block">Perks</label>
