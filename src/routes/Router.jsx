@@ -6,6 +6,7 @@ import Home from "../pages/Home/Home";
 import AllTicket from "../pages/AllTicket/AllTicket";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import AddTicket from "../pages/Dashboard/Vendor/AddTicket";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/all-ticket",
+        path: "all-ticket",
         element: <AllTicket />,
       },
     ],
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "add-ticket",
+        element: <AddTicket/>
       },
     ],
   },

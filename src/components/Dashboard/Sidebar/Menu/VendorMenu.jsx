@@ -12,7 +12,7 @@ const VendorMenu = () => {
         label="Revenue Overview"
         address="revenue-overview"
       />
-      <MenuItem icon={LuTicketPlus} label="Add Ticket" address="add-ticket" />
+      <MenuItem icon={LuTicketPlus} label="Add Ticket" address="/dashboard/add-ticket" />
       <MenuItem
         icon={ImUserCheck}
         label="My Added Ticket"
