@@ -31,7 +31,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar, only visible till md breakpoint */}
-      <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
+      <div className="bg-gray-100 text-gray-800 flex justify-between items-center md:hidden">
         <div>
           <div className="flex justify-start items-center">
             <div className="md:w-12 md:h-12 w-8 h-8">
@@ -51,7 +51,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100  space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
@@ -60,9 +60,12 @@ const Sidebar = () => {
           <div>
             {/* Logo */}
             <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto">
-              <Link to="/">
-                <img src={logo} alt="logo" width="100" height="100" />
-              </Link>
+              <div className="flex justify-start items-center">
+                <div className="md:w-12 md:h-12 w-8 h-8">
+                  <img className="h-full " src={logo} alt="Logo" />
+                </div>
+                <span className="font-bold text-3xl md:text-4xl">Jurnext</span>
+              </div>
             </div>
           </div>
 
@@ -71,11 +74,11 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* Common Menu */}
-              <MenuItem
+              {/* <MenuItem
                 icon={BsGraphUp}
                 label="Statistics"
                 address="/dashboard"
-              />
+              /> */}
               {/* Role-Based Menu */}
               <AdminMenu />
               <VendorMenu />
@@ -97,7 +100,7 @@ const Sidebar = () => {
             />
             <button
               onClick={logOut}
-              className="flex cursor-pointer w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+              className="flex cursor-pointer w-full items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
             >
               <GrLogout className="w-5 h-5" />
 

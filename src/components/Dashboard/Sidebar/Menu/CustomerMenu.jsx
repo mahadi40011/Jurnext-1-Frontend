@@ -1,5 +1,6 @@
 import { GiTakeMyMoney } from "react-icons/gi";
 import { IoBookmarks } from "react-icons/io5";
+import MenuItem from "../../../Shared/MenuItem";
 
 const CustomerMenu = () => {
   return (
