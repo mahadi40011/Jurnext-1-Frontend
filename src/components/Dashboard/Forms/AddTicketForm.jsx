@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { FaCamera } from "react-icons/fa";
 
 const perksList = ["AC", "WiFi", "Breakfast", "Charging Port"];
 
@@ -28,7 +29,7 @@ const AddTicketForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="bg-white p-6 rounded-xl shadow-md"
     >
-      <h2 className="text-2xl font-semibold mb-6">Add Ticket</h2>
+      <h2 className="md:text-3xl text-2xl text-center md:text-start font-semibold md:font-bold mb-6">Add Ticket</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Ticket Title */}
@@ -36,8 +37,8 @@ const AddTicketForm = () => {
           <label className="label">Ticket Title</label>
           <input
             {...register("title", { required: "Title is required" })}
-            className="input"
-            placeholder="Dhaka to Cox's Bazar"
+            className="input placeholder:opacity-60"
+            placeholder="Write Ticket Title Here"
           />
           {errors.title && <p className="error">{errors.title.message}</p>}
         </div>
@@ -46,36 +47,42 @@ const AddTicketForm = () => {
         <div>
           <label className="label">Transport Type</label>
           <select
-            {...register("transport", { required: true })}
-            className="input"
+            {...register("transport", {
+              required: "Transport Type is Required",
+            })}
+            className="input "
           >
-            <option value="">Select</option>
+            <option value="">Select Transport Type</option>
             <option>Bus</option>
             <option>Train</option>
             <option>Flight</option>
             <option>Launch</option>
           </select>
-          {errors.transport && <p className="error">Required</p>}
+          {errors.transport && (
+            <p className="error">{errors.transport.message}</p>
+          )}
         </div>
 
         {/* From */}
         <div>
           <label className="label">From</label>
           <input
-            {...register("from", { required: true })}
-            className="input"
-            placeholder="Dhaka"
+            {...register("from", { required: "Location is Required" })}
+            className="input placeholder:opacity-60"
+            placeholder="Starting location"
           />
+          {errors.from && <p className="error">{errors.from.message}</p>}
         </div>
 
         {/* To */}
         <div>
           <label className="label">To</label>
           <input
-            {...register("to", { required: true })}
-            className="input"
-            placeholder="Cox's Bazar"
+            {...register("to", { required: "Location is Required" })}
+            className="input placeholder:opacity-60"
+            placeholder="Destination"
           />
+          {errors.to && <p className="error">{errors.to.message}</p>}
         </div>
 
         {/* Price */}
@@ -83,10 +90,14 @@ const AddTicketForm = () => {
           <label className="label">Price (Per Unit)</label>
           <input
             type="number"
-            {...register("price", { required: true, min: 1 })}
-            className="input"
-            placeholder="1200"
+            {...register("price", {
+              required: "Price is Required",
+              min: { value: 50, message: "Price must be 50 or above" },
+            })}
+            className="input placeholder:opacity-60"
+            placeholder="Price"
           />
+          {errors.price && <p className="error">{errors.price.message}</p>}
         </div>
 
         {/* Quantity */}
@@ -94,10 +105,16 @@ const AddTicketForm = () => {
           <label className="label">Ticket Quantity</label>
           <input
             type="number"
-            {...register("quantity", { required: true, min: 1 })}
-            className="input"
-            placeholder="50"
+            {...register("quantity", {
+              required: "Quantity is Required",
+              min: { value: 1, message: "Quantity cannot be 0" },
+            })}
+            className="input placeholder:opacity-60"
+            placeholder="Quantity"
           />
+          {errors.quantity && (
+            <p className="error">{errors.quantity.message}</p>
+          )}
         </div>
 
         {/* Departure Date */}
@@ -105,9 +122,16 @@ const AddTicketForm = () => {
           <label className="label">Departure Date</label>
           <input
             type="date"
-            {...register("date", { required: true })}
-            className="input"
+            min={new Date().toISOString().split("T")[0]}
+            {...register("date", {
+              required: "Date is Required",
+              validate: (value) =>
+                new Date(value) >= new Date().setHours(0, 0, 0, 0) ||
+                "Past date is not allowed",
+            })}
+            className="input "
           />
+          {errors?.date && <p className="error">{errors.date.message}</p>}
         </div>
 
         {/* Departure Time */}
@@ -115,28 +139,35 @@ const AddTicketForm = () => {
           <label className="label">Departure Time</label>
           <input
             type="time"
-            {...register("time", { required: true })}
-            className="input"
-          />
-        </div>
+            {...register("time", {
+              required: "Time is required",
+              validate: (value, formValues) => {
+                const selectedDate = new Date(formValues.date);
+                const today = new Date();
 
-        {/* Image Upload */}
-        <div>
-          <label className="label">Ticket Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            {...register("image")}
-            onChange={handleImage}
+                // reset time for date comparison
+                selectedDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+
+                // If date is today, check time
+                if (selectedDate.getTime() === today.getTime()) {
+                  const now = new Date();
+                  const [hour, minute] = value.split(":");
+
+                  const selectedTime = new Date();
+                  selectedTime.setHours(hour, minute, 0, 0);
+
+                  if (selectedTime < now) {
+                    return "Past time is not allowed for today";
+                  }
+                }
+
+                return true;
+              },
+            })}
             className="input"
           />
-          {preview && (
-            <img
-              src={preview}
-              alt="preview"
-              className="mt-2 h-24 rounded-md object-cover"
-            />
-          )}
+          {errors?.time && <p className="error">{errors.time.message}</p>}
         </div>
 
         {/* Vendor Name */}
@@ -155,8 +186,63 @@ const AddTicketForm = () => {
           />
         </div>
 
+        {/* Ticket Image */}
+        <div className="row-span-2">
+          <label className="label">Ticket Image</label>
+
+          <div className="relative w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-lime-500 transition">
+            {/* Hidden Input */}
+            <input
+              type="file"
+              accept="image/*"
+              {...register("image", { required: "Image is required" })}
+              onChange={handleImage}
+              className="hidden"
+              id="ticketImage"
+            />
+
+            {/* Upload Area */}
+            <label
+              htmlFor="ticketImage"
+              className="cursor-pointer flex flex-col items-center justify-center gap-1"
+            >
+              {!preview ? (
+                <>
+                  <div className="w-8 h-8 flex justify-center items-center">
+                    <FaCamera size={24} color="" />
+                  </div>
+                  <p className="text-sm font-medium">Click to upload image</p>
+                  <p className="text-xs text-gray-500">JPG, PNG up to 5MB</p>
+                </>
+              ) : (
+                <div className="relative w-full">
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="h-32 w-full object-cover rounded-md"
+                  />
+
+                  {/* Remove Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPreview(null);
+                      document.getElementById("ticketImage").value = "";
+                    }}
+                    className="absolute top-2 right-2 bg-red-500 text-white rounded-lg px-2 py-1 hover:bg-red-600 transition"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
+            </label>
+          </div>
+          {errors?.image && <p className="error">{errors.image.message}</p>}
+        </div>
+
         {/* Perks */}
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <label className="label mb-2 block">Perks</label>
           <div className="flex flex-wrap gap-4">
             {perksList.map((perk) => (
@@ -164,23 +250,29 @@ const AddTicketForm = () => {
                 <input
                   type="checkbox"
                   value={perk}
-                  {...register("perks")}
+                  {...register("perks", {
+                    validate: (value) =>
+                      value?.length > 0 || "At least one perk is required",
+                  })}
                   className="accent-lime-500"
                 />
                 {perk}
               </label>
             ))}
           </div>
+          {errors?.perks && <p className="error">{errors.perks.message}</p>}
         </div>
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        className="mt-6 w-full bg-lime-500 hover:bg-lime-600 text-white py-3 rounded-lg font-semibold transition"
-      >
-        Add Ticket
-      </button>
+      <div className="flex justify-end ">
+        <button
+          type="submit"
+          className="mt-6 lg:w-1/3 w-1/2 bg-lime-500 hover:bg-lime-600 text-white py-2 rounded-lg font-semibold transition"
+        >
+          Add Ticket
+        </button>
+      </div>
     </form>
   );
 };
