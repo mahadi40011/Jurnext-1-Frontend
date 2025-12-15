@@ -3,6 +3,8 @@ import logo from "../../../assets/logo.png";
 import Container from "../Container";
 import { NavLink } from "react-router";
 import HoverButton from "../Buttons/HoverButton";
+import { HiMenu } from "react-icons/hi";
+import NavbarMenu from "./NavbarMenu";
 
 const Navbar = () => {
   const navItems = [
@@ -18,11 +20,7 @@ const Navbar = () => {
           <div className="flex justify-between items-center">
             <div className="flex justify-start items-center">
               <div className="md:w-12 md:h-12 w-8 h-8">
-                <img
-                  className="h-full "
-                  src={logo}
-                  alt="Logo"
-                />
+                <img className="h-full " src={logo} alt="Logo" />
               </div>
               <span className="font-bold text-3xl md:text-4xl">Jurnext</span>
             </div>
@@ -41,10 +39,37 @@ const Navbar = () => {
                 </NavLink>
               ))}
             </div>
-            <div className="flex justify-center items-center gap-5">
-              <NavLink to="/login">
-                <HoverButton label="Login" />
-              </NavLink>
+            <div className="">
+              <div className="lg:hidden">
+                <div className="drawer">
+                  <input
+                    id="my-drawer-1"
+                    type="checkbox"
+                    className="drawer-toggle"
+                  />
+                  <div className="drawer-content">
+                    {/* Page content here */}
+                    <label htmlFor="my-drawer-1" className="drawer-button">
+                      <HiMenu size={28} />
+                    </label>
+                  </div>
+                  <div className="drawer-side">
+                    <label
+                      htmlFor="my-drawer-1"
+                      aria-label="close sidebar"
+                      className="drawer-overlay"
+                    ></label>
+                    <ul className="menu bg-base-200 min-h-full w-fit p-4">
+                     <NavbarMenu/>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block">
+                <NavLink to="/login">
+                  <HoverButton label="Login" />
+                </NavLink>
+              </div>
             </div>
           </div>
         </Container>
