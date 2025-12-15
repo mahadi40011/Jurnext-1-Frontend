@@ -5,13 +5,19 @@ import { NavLink } from "react-router";
 import HoverButton from "../Buttons/HoverButton";
 import { HiMenu } from "react-icons/hi";
 import NavbarMenu from "./NavbarMenu";
+import useAuth from "../../../hooks/useAuth";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Navbar = () => {
+  const { user, loading } = useAuth();
+
   const navItems = [
     { path: "/", name: "Home" },
     { path: "/all-ticket", name: "All-ticket" },
     { path: "/dashboard", name: "Dashboard" },
   ];
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
@@ -60,15 +66,27 @@ const Navbar = () => {
                       className="drawer-overlay"
                     ></label>
                     <ul className="menu bg-base-200 min-h-full w-fit p-4">
-                     <NavbarMenu/>
+                      <NavbarMenu />
                     </ul>
                   </div>
                 </div>
               </div>
+
               <div className="hidden lg:block">
-                <NavLink to="/login">
-                  <HoverButton label="Login" />
-                </NavLink>
+                {user ? (
+                  <img
+                    className="rounded-full"
+                    referrerPolicy="no-referrer"
+                    src={user.photoURL}
+                    alt="profile"
+                    height="40"
+                    width="40"
+                  />
+                ) : (
+                  <NavLink to="/login">
+                    <HoverButton label="Login" />
+                  </NavLink>
+                )}
               </div>
             </div>
           </div>
