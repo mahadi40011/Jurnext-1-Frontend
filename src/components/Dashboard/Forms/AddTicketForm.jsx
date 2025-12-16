@@ -183,63 +183,69 @@ const AddTicketForm = () => {
         </div>
 
         {/* Ticket Image */}
-        <Controller
-          name="image"
-          control={control}
-          rules={{ required: "Image is required" }}
-          render={({ field }) => (
-            <div className="relative w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  field.onChange(file); // RHF value update
-                  if (file) setPreview(URL.createObjectURL(file)); // preview
-                }}
-                className="hidden"
-                id="ticketImage"
-              />
+        <div className="row-span-2">
+          <label className="label">Image</label>
+          <Controller
+            name="image"
+            control={control}
+            rules={{ required: "Image is required" }}
+            render={({ field }) => (
+              <div className="relative w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    field.onChange(file); // RHF value update
+                    if (file) setPreview(URL.createObjectURL(file)); // preview
+                  }}
+                  className="hidden"
+                  id="ticketImage"
+                />
 
-              <label
-                htmlFor="ticketImage"
-                className="cursor-pointer flex flex-col items-center justify-center gap-1"
-              >
-                {!preview ? (
-                  <>
-                    <div className="w-8 h-8 flex justify-center items-center">
-                      <FaCamera size={24} />
+                <label
+                  htmlFor="ticketImage"
+                  className="cursor-pointer flex flex-col items-center justify-center gap-1"
+                >
+                  {!preview ? (
+                    <>
+                      <div className="w-8 h-8 flex justify-center items-center">
+                        <FaCamera size={24} />
+                      </div>
+                      <p className="text-sm font-medium">
+                        Click to upload image
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        JPG, PNG up to 5MB
+                      </p>
+                    </>
+                  ) : (
+                    <div className="relative w-full">
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        className="h-32 w-full object-cover rounded-md"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPreview(null);
+                          field.onChange(null); // remove file from form
+                          document.getElementById("ticketImage").value = "";
+                        }}
+                        className="absolute top-2 right-2 bg-red-500 text-white rounded-lg px-2 py-1 hover:bg-red-600 transition"
+                      >
+                        ✕
+                      </button>
                     </div>
-                    <p className="text-sm font-medium">Click to upload image</p>
-                    <p className="text-xs text-gray-500">JPG, PNG up to 5MB</p>
-                  </>
-                ) : (
-                  <div className="relative w-full">
-                    <img
-                      src={preview}
-                      alt="Preview"
-                      className="h-32 w-full object-cover rounded-md"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPreview(null);
-                        field.onChange(null); // remove file from form
-                        document.getElementById("ticketImage").value = "";
-                      }}
-                      className="absolute top-2 right-2 bg-red-500 text-white rounded-lg px-2 py-1 hover:bg-red-600 transition"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                )}
-              </label>
-            </div>
-          )}
-        />
-        {errors?.image && (
-          <p className="text-sm text-red-500 mt-1">{errors.image.message}</p>
-        )}
+                  )}
+                </label>
+              </div>
+            )}
+          />
+          {errors?.image && <p className="error">{errors.image.message}</p>}
+        </div>
+
         {/* Perks */}
         <div className="lg:col-span-2">
           <label className="label mb-2 block">Perks</label>
