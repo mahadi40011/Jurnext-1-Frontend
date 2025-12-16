@@ -137,10 +137,10 @@ const TicketDetails = () => {
           <div className="flex justify-between">
             <p className="font-bold text-3xl text-gray-500">Price: ${price}</p>
             <div
-              className={`${timeLeft === "Departed" && " cursor-not-allowed"}`}
+              
             >
               <Button
-                disabled={timeLeft === "Departed" && true}
+                disabled={timeLeft === "Departed" || quantity === 0}
                 onClick={() => setIsOpen(true)}
                 label="Book Now"
               />
@@ -148,7 +148,12 @@ const TicketDetails = () => {
           </div>
           <hr className="my-6" />
 
-          <BookNowModal ticketID={id} availableQuantity={quantity} closeModal={closeModal} isOpen={isOpen} />
+          <BookNowModal
+            ticketID={id}
+            availableQuantity={quantity}
+            closeModal={closeModal}
+            isOpen={isOpen}
+          />
         </div>
       </div>
     </Container>
