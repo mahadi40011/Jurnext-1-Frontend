@@ -1,15 +1,11 @@
-// import Container from "../../components/Shared/Container";
-// import Heading from "../../components/Shared/Heading";
-// import Button from "../../components/Shared/Button/Button";
-// import PurchaseModal from "../../components/Modal/PurchaseModal";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import Container from "../../components/Shared/Container";
-import HoverButton from "../../components/Shared/Buttons/HoverButton";
 import dayjs from "dayjs";
+import Button from "../../components/Shared/Buttons/Button";
 
 const TicketDetails = () => {
   const { id } = useParams();
@@ -139,8 +135,14 @@ const TicketDetails = () => {
           <hr className="my-6" />
           <div className="flex justify-between">
             <p className="font-bold text-3xl text-gray-500">Price: ${price}</p>
-            <div>
-              <HoverButton onClick={() => setIsOpen(true)} label="Book Now" />
+            <div
+              className={`${timeLeft === "Departed" && " cursor-not-allowed"}`}
+            >
+              <Button
+                disabled={timeLeft === "Departed" && true}
+                onClick={() => setIsOpen(true)}
+                label="Book Now"
+              />
             </div>
           </div>
           <hr className="my-6" />
