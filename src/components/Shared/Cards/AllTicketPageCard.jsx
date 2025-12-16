@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router";
 
 const AllTicketPageCard = ({ ticket }) => {
-  const { image, title, transport, perks, price, quantity, time, date } =
+  const {_id, image, title, transport, perks, price, quantity, time, date } =
     ticket;
 
   return (
@@ -30,10 +31,10 @@ const AllTicketPageCard = ({ ticket }) => {
           </div>
         </div>
 
-        {/* Pay Now placeholder */}
-        <button className="mt-2 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded-lg font-semibold transition">
+        {/* See Details Button */}
+        <Link to={`/tickets/${_id}`} className="mt-2 w-full bg-lime-500 hover:bg-lime-600 text-white text-center py-2 rounded-lg font-semibold transition">
           See Details
-        </button>
+        </Link>
       </div>
     </div>
   );

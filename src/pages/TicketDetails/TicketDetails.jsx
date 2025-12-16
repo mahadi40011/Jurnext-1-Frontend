@@ -20,7 +20,7 @@ const TicketDetails = () => {
   const { data: ticket = {}, isLoading } = useQuery({
     queryKey: ["ticket", id],
     queryFn: async () => {
-      const result = await axiosSecure(`/tickets/69417ffa2e1405153ebe5414`);
+      const result = await axiosSecure(`/tickets/${id}`);
       return result.data;
     },
   });
