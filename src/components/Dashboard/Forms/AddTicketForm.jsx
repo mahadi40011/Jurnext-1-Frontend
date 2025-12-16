@@ -1,22 +1,89 @@
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { imageUpload } from "../../../utils";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const perksList = ["AC", "WiFi", "Breakfast", "Charging Port"];
 
 const AddTicketForm = () => {
   const [preview, setPreview] = useState(null);
+  const { user, loading } = useAuth();
+  const axiosSecure = useAxiosSecure()
+
+    const {
+      isPending,
+      isError,
+      mutateAsync,
+      reset: mutationReset,
+    } = useMutation({
+      mutationFn: async (payload) => {
+        return await axiosSecure.post(`/tickets`, payload);
+      },
+      onSettled: (data, err) => {
+        if (data) {
+          toast.success("Ticket Added Successfully");
+          mutationReset();
+        }
+        if (err) {
+          toast.error(err)
+        }
+      },
+      retry: 3,
+    });
 
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Ticket Data:", data);
+  const onSubmit = async (data) => {
+    const {
+      date,
+      from,
+      to,
+      image,
+      price,
+      perks,
+      quantity,
+      title,
+      time,
+      transport,
+    } = data;
+
+    try {
+      //  image upload to imgbb
+      const imageURL = await imageUpload(image);
+
+      const ticketData = {
+        title,
+        transport,
+        from,
+        to,
+        price: Number(price),
+        quantity : Number(quantity),
+        date,
+        time,
+        vendor: { name: user?.displayName, email: user?.email },
+        image: imageURL,
+        perks,
+      };
+
+      await mutateAsync(ticketData);
+      reset();
+
+    } catch (err) {
+      toast.error(err?.message);
+    }
   };
+
+   if (loading && isPending) return <LoadingSpinner />;
 
   return (
     <form
