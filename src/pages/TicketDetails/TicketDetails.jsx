@@ -6,6 +6,7 @@ import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import Container from "../../components/Shared/Container";
 import dayjs from "dayjs";
 import Button from "../../components/Shared/Buttons/Button";
+import BookNowModal from "../../components/Shared/Modal/BookNowModal";
 
 const TicketDetails = () => {
   const { id } = useParams();
@@ -62,9 +63,9 @@ const TicketDetails = () => {
 
   if (isLoading) return <LoadingSpinner />;
 
-  // const closeModal = () => {
-  //   setIsOpen(false);
-  // };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <Container>
@@ -147,11 +148,7 @@ const TicketDetails = () => {
           </div>
           <hr className="my-6" />
 
-          {/* <PurchaseModal
-            plant={plant}
-            closeModal={closeModal}
-            isOpen={isOpen}
-          /> */}
+          <BookNowModal ticketID={id} availableQuantity={quantity} closeModal={closeModal} isOpen={isOpen} />
         </div>
       </div>
     </Container>
