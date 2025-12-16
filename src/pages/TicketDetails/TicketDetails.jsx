@@ -2,36 +2,73 @@
 // import Heading from "../../components/Shared/Heading";
 // import Button from "../../components/Shared/Button/Button";
 // import PurchaseModal from "../../components/Modal/PurchaseModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import Container from "../../components/Shared/Container";
 import HoverButton from "../../components/Shared/Buttons/HoverButton";
-import Heading from "../../components/Shared/Heading";
+import dayjs from "dayjs";
 
 const TicketDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   let [isOpen, setIsOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState("");
 
-  const { data: plant = {}, isLoading } = useQuery({
+  const { data: ticket = {}, isLoading } = useQuery({
     queryKey: ["ticket", id],
     queryFn: async () => {
-      const result = await axiosSecure(`/tickets/${id}`);
+      const result = await axiosSecure(`/tickets/69417ffa2e1405153ebe5414`);
       return result.data;
     },
   });
 
-  // if (isLoading) return <LoadingSpinner />;
+  const {
+    image,
+    title,
+    price,
+    from,
+    to,
+    date,
+    time,
+    transport,
+    quantity,
+    perks,
+    vendor,
+  } = ticket || {};
 
-  const { image, name, price, category, quantity, description, seller } =
-    plant || {};
+  // Countdown timer
+  useEffect(() => {
+    const departure = dayjs(`${date} ${time}`);
+    const interval = setInterval(() => {
+      const now = dayjs();
+      const diff = departure.diff(now);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+      if (diff <= 0) {
+        clearInterval(interval);
+        setTimeLeft("Departed");
+      } else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [date, time]);
+
+  if (isLoading) return <LoadingSpinner />;
+
+  // const closeModal = () => {
+  //   setIsOpen(false);
+  // };
 
   return (
     <Container>
@@ -42,21 +79,32 @@ const TicketDetails = () => {
             <div className="w-full overflow-hidden rounded-xl">
               <img
                 className="object-cover w-full"
-                src="https://i.ibb.co/qYcwP8N2/train.jpg"
-                alt={`${name} image`}
+                src={image}
+                alt={`${title} image`}
               />
             </div>
           </div>
         </div>
         <div className="md:gap-10 flex-1">
           {/* Plant Info */}
-          <Heading title={"jifgjdiojdfiwejfioif"} subtitle={"dhaka - rangpur"}/>
+          <div className="text-2xl font-bold">{title}</div>
+          <div className="font-semibold text-xl mt-2">{`${from} → ${to}`}</div>
           <hr className="my-6" />
-          <div
-            className="
-          text-lg font-light text-neutral-500"
-          >
-            {description}
+          <div>
+            <p>Transport: {transport}</p>
+            <div className="lg:col-span-2 flex items-center gap-2">
+              <label className="label ">Perks: </label>
+              <div className="flex flex-wrap items-center gap-4">
+                {perks.map((perk) => (
+                  <span
+                    key={perk}
+                    className="bg-green-500 px-2 rounded-lg text-sm"
+                  >
+                    {perk}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
           <hr className="my-6" />
 
@@ -70,27 +118,22 @@ const TicketDetails = () => {
                 gap-2
               "
           >
-            <div>Seller: {seller?.name}</div>
-
-            <img
-              className="rounded-full"
-              height="30"
-              width="30"
-              alt="Seller Avatar"
-              referrerPolicy="no-referrer"
-              src={seller?.image}
-            />
+            {" "}
+            Seller: {vendor?.name}
           </div>
+          <p>Email: {vendor?.email}</p>
           <hr className="my-6" />
           <div>
             <p
               className="
                 gap-4 
-                font-light
-                text-neutral-500
               "
             >
-              Quantity: {quantity} Units Left Only!
+              Quantity: <span className="text-red-400">{quantity}</span> Units
+              Left Only!
+            </p>
+            <p>
+              Departure: <span className="text-red-400">{timeLeft}</span>
             </p>
           </div>
           <hr className="my-6" />
