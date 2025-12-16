@@ -3,19 +3,6 @@ import React from "react";
 const AllTicketPageCard = ({ ticket }) => {
   const { image, title, transport, perks, price, quantity, time, date } =
     ticket;
-  // const ticket = {
-  //   id: 6,
-  //   title: "Dhaka to Barisal",
-  //   image: "https://i.ibb.co/qYcwP8N2/train.jpg",
-  //   quantity: 2,
-  //   price: 95,
-  //   from: "Dhaka",
-  //   to: "Barisal",
-  //   departure: "2025-12-30 08:00 AM",
-  //   status: "paid",
-  //   transport_type: "train",
-  //   perks: ["AC", "TV"],
-  // };
 
   return (
     <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200 hover:shadow-xl transition">

@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import AddTicket from "../pages/Dashboard/Vendor/AddTicket";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/Dashboard/Common/Profile";
+import TicketDetails from "../pages/TicketDetails/TicketDetails";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllTicket />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "tickets/:id",
+        element: (
+          <PrivateRoute>
+            <TicketDetails />
           </PrivateRoute>
         ),
       },
