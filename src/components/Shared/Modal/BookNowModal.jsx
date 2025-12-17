@@ -12,7 +12,7 @@ const BookNowModal = ({ closeModal, isOpen, ticketID, availableQuantity }) => {
   const ticketBookingData = {
     customer: {
       email: user?.email,
-      name: user?.name
+      name: user?.displayName
     },
     quantity,
     ticketID,
