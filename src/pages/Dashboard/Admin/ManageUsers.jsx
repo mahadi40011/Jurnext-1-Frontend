@@ -1,4 +1,5 @@
 import React from "react";
+import ManageUsersTableRow from "../../../components/Shared/TableRows/ManageUsersTableRow";
 
 const ManageUsers = () => {
   return (
@@ -15,7 +16,7 @@ const ManageUsers = () => {
           </thead>
 
           <tbody className="text-gray-700 text-sm font-light">
-    
+            <ManageUsersTableRow />
           </tbody>
         </table>
       </div>
