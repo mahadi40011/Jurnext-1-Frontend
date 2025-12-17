@@ -51,7 +51,13 @@ const RequestedBookings = () => {
               </tr>
             </thead>
             <tbody>
-             
+              {requestedBookings.map((bookingReqData) => (
+                <RequestedBookingTableRow
+                  key={bookingReqData._id}
+                  refetch={refetch}
+                  bookingReqData={bookingReqData}
+                />
+              ))}
             </tbody>
           </table>
         </div>
