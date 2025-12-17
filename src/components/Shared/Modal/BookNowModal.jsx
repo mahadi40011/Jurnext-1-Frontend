@@ -4,7 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 
-const BookNowModal = ({ closeModal, isOpen, ticketID, availableQuantity }) => {
+const BookNowModal = ({ closeModal, vendor, isOpen, ticketID, availableQuantity }) => {
   const {user}= useAuth()
   const axiosSecure = useAxiosSecure();
   const [quantity, setQuantity] = useState(null);
@@ -16,6 +16,7 @@ const BookNowModal = ({ closeModal, isOpen, ticketID, availableQuantity }) => {
     },
     quantity,
     ticketID,
+    vendor,
     status: "pending"
   };
 

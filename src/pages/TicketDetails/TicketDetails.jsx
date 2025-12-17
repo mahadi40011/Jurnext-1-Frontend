@@ -148,6 +148,7 @@ const TicketDetails = () => {
 
           <BookNowModal
             ticketID={id}
+            vendor={vendor}
             availableQuantity={quantity}
             closeModal={closeModal}
             isOpen={isOpen}
