@@ -73,7 +73,7 @@ const ManageTicketDataRow = ({ ticket, refetch }) => {
       <td className="py-4 px-6 text-left text-xs">
         <div className="flex items-center justify-center gap-3">
           <button
-            onClick={() => handleStatusUpdate("accepted")}
+            onClick={() => handleStatusUpdate("approved")}
             disabled={status === "accepted"}
             className="px-4 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >

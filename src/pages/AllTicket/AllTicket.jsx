@@ -9,9 +9,9 @@ const AllTicket = () => {
   const axiosSecure = useAxiosSecure();
 
   const { data: tickets = [], isLoading } = useQuery({
-    queryKey: "plants",
+    queryKey: "approved-tickets",
     queryFn: async () => {
-      const result = await axiosSecure(`/tickets`);
+      const result = await axiosSecure(`/approved-tickets`);
       return result.data;
     },
   });
