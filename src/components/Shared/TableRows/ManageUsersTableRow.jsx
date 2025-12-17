@@ -7,7 +7,24 @@ const ManageUsersTableRow = ({ user, refetch }) => {
 
   const { _id, name, email, role } = user || {};
 
- 
+  const handleRoleUpdate = async (id, newRole) => {
+    try {
+      const { data } = await axiosSecure.patch(`/update-role`, {
+        id,
+        role: newRole,
+      });
+
+      if (data.modifiedCount > 0) {
+        refetch();
+        toast.success(`User role updated to ${newRole}!`);
+      } else {
+        toast.info("No changes were made ");
+      }
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || "Something went wrong";
+      toast.error(errorMsg);
+    }
+  };
 
   return (
     <tr className="border-b border-gray-200 hover:bg-emerald-50 transition-colors">
