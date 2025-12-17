@@ -11,7 +11,7 @@ const CustomerMenu = () => {
       <MenuItem
         icon={IoBookmarks}
         label="My Booked Ticket"
-        address="my-booked-ticket"
+        address="booked-tickets"
       />
       <MenuItem
         icon={GiTakeMyMoney}
