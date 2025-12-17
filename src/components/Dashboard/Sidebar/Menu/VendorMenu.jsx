@@ -24,7 +24,7 @@ const VendorMenu = () => {
       <MenuItem
         icon={ImUserCheck}
         label="My Added Ticket"
-        address="my-added-ticket"
+        address="added-ticket"
       />
       <MenuItem
         icon={TbBrandBooking}
