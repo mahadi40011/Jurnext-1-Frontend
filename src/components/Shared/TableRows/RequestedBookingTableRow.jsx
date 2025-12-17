@@ -1,8 +1,26 @@
 import React from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
-const RequestedBookingTableRow = ({ bookingReqData }) => {
-  const { customer, ticketPrice, ticketTitle, quantity, status } =
+const RequestedBookingTableRow = ({refetch, bookingReqData }) => {
+  const axiosSecure = useAxiosSecure();
+  const {_id, customer, ticketPrice, ticketTitle, quantity, status } =
     bookingReqData;
+  
+  const handleStatusUpdate = async (newStatus) => {
+    try {
+      const { data } = await axiosSecure.patch(`/booking-status/${_id}`, {
+        status: newStatus,
+      });
+
+      if (data.modifiedCount > 0) {
+        refetch();
+        toast.success(`Status updated to ${newStatus}`);
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   return (
     <tr>
@@ -18,10 +36,10 @@ const RequestedBookingTableRow = ({ bookingReqData }) => {
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-center text-sm">
         <p className="text-gray-900 ">
           <span
-            className={`${status === "pending" ? "bg-yellow-200" : ""} ${
-              status === "accepted" ? "bg-green-200" : ""
+            className={`${status === "pending" ? "bg-yellow-200/50" : ""} ${
+              status === "accepted" ? "bg-green-200/50" : ""
             } ${
-              status === "rejected" ? "bg-red-200" : ""
+              status === "rejected" ? "bg-red-200/50" : ""
             } px-3 pb-0.5 rounded-full font-normal`}
           >
             {" "}
@@ -34,16 +52,23 @@ const RequestedBookingTableRow = ({ bookingReqData }) => {
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        {/* <button
-          className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
-          ></span>
-          <span className="relative">Cancel</span>
-        </button> */}
-        <button>accept</button>
+        <div className="flex items-center justify-center gap-3">
+          <button
+            onClick={() => handleStatusUpdate("accepted")}
+            disabled={status === "accepted"}
+            className="px-4 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            Accept
+          </button>
+
+          <button
+            onClick={() => handleStatusUpdate("rejected")}
+            disabled={status === "rejected"}
+            className="px-4 py-1.5 rounded-lg bg-rose-100 text-rose-700 font-bold text-xs uppercase tracking-wider hover:bg-rose-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            Reject
+          </button>
+        </div>
       </td>
     </tr>
   );
