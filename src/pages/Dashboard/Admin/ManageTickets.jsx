@@ -3,6 +3,7 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import ManageTicketDataRow from "../../../components/Shared/TableRows/ManageTicketDataRow";
 
 const ManageTickets = () => {
   const { user, loading } = useAuth();
@@ -21,7 +22,6 @@ const ManageTickets = () => {
   });
 
   if (isLoading & loading) return <LoadingSpinner />;
-  console.log(tickets);
 
   return (
     <div className="container mx-auto px-2 sm:px-4">
@@ -42,7 +42,13 @@ const ManageTickets = () => {
           </thead>
 
           <tbody className="text-gray-700 text-sm font-light">
-            
+            {tickets.map((ticket) => (
+              <ManageTicketDataRow
+                key={ticket._id}
+                refetch={refetch}
+                ticket={ticket}
+              />
+            ))}
           </tbody>
         </table>
       </div>
