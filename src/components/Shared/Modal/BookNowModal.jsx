@@ -2,12 +2,18 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 const BookNowModal = ({ closeModal, isOpen, ticketID, availableQuantity }) => {
+  const {user}= useAuth()
   const axiosSecure = useAxiosSecure();
   const [quantity, setQuantity] = useState(null);
 
   const ticketBookingData = {
+    customer: {
+      email: user?.email,
+      name: user?.name
+    },
     quantity,
     ticketID,
     status: "pending"

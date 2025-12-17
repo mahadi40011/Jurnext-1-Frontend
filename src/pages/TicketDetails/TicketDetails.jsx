@@ -136,9 +136,7 @@ const TicketDetails = () => {
           <hr className="my-6" />
           <div className="flex justify-between">
             <p className="font-bold text-3xl text-gray-500">Price: ${price}</p>
-            <div
-              
-            >
+            <div>
               <Button
                 disabled={timeLeft === "Departed" || quantity === 0}
                 onClick={() => setIsOpen(true)}
