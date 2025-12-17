@@ -74,6 +74,7 @@ const AddTicketForm = () => {
         vendor: { name: user?.displayName, email: user?.email },
         image: imageURL,
         perks,
+        status: "pending"
       };
 
       await mutateAsync(ticketData);
@@ -131,7 +132,7 @@ const AddTicketForm = () => {
 
           {/* From */}
           <div>
-            <label className="label">From</label>
+            <label className="label">From (location)</label>
             <input
               {...register("from", { required: "Location is Required" })}
               className="input placeholder:opacity-60"
@@ -142,7 +143,7 @@ const AddTicketForm = () => {
 
           {/* To */}
           <div>
-            <label className="label">To</label>
+            <label className="label">To (location)</label>
             <input
               {...register("to", { required: "Location is Required" })}
               className="input placeholder:opacity-60"

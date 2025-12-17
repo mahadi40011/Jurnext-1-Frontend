@@ -59,10 +59,12 @@ const BookedTicketCard = ({ ticket }) => {
           Departure: {dayjs(`${date} ${time}`).format("DD MMM YYYY, HH:mm")}
         </p>
         <p className="text-sm">Quantity: {quantity}</p>
-        <p className="text-sm font-medium">Total: ${totalPrice}</p>
+        <p className="text-sm font-medium">Total Price: ${totalPrice}</p>
         <p className="text-sm font-semibold">Status: {status}</p>
         {status !== "rejected" && status !== "paid" && !departurePassed && (
-          <p className="text-sm text-red-500">Countdown: {timeLeft}</p>
+          <p className="text-sm ">
+            Countdown: <span className="text-red-500">{timeLeft}</span>
+          </p>
         )}
 
         {/* Pay Now Button */}
