@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const ManageUsersTableRow = ({ user, refetch }) => {
   const axiosSecure = useAxiosSecure();
 
-  const { _id, name, email, role } = user || {};
+  const { _id, name, email, role, fraud } = user || {};
 
   const handleRoleUpdate = async (id, newRole) => {
     try {
@@ -26,10 +26,26 @@ const ManageUsersTableRow = ({ user, refetch }) => {
     }
   };
 
+  const handleToggleFraud = async (userId, currentStatus) => {
+    const endpoint = currentStatus
+      ? `/users/unmark-fraud/${userId}`
+      : `/users/mark-fraud/${userId}`;
+
+    try {
+      const { data } = await axiosSecure.patch(endpoint);
+      if (data.modifiedCount > 0) {
+        refetch();
+        toast.success(currentStatus ? "Fraud mark removed" : "Marked as fraud");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <tr className="border-b border-gray-200 hover:bg-emerald-50 transition-colors">
       <td className="py-4 px-6 text-left border-r border-gray-200 font-medium whitespace-nowrap">
-        {name}
+        {name} <span className="text-red-500">{fraud && "(Fraud)"}</span>
       </td>
       <td className="py-4 px-6 text-left border-r border-gray-200 font-medium whitespace-nowrap">
         {email}
@@ -59,11 +75,11 @@ const ManageUsersTableRow = ({ user, refetch }) => {
 
           {/* Mark as Fraud */}
           <button
-            // onClick={() => handleMarkFraud(_id)}
+            onClick={() => handleToggleFraud(_id, fraud)}
             disabled={role !== "vendor"}
             className="px-3 py-1.5 rounded-lg bg-red-600 text-white font-bold text-[10px] uppercase hover:bg-red-700 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed shadow-sm transition-all"
           >
-            Mark AS Fraud
+            {fraud ? "unmark as fraud" : "mark as fraud"}
           </button>
         </div>
       </td>
