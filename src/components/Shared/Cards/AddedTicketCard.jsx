@@ -1,8 +1,18 @@
 import React from "react";
 
 const AddedTicketCard = ({ ticket }) => {
-  const { _id, image, title, transport, perks, price, quantity, time, date } =
-    ticket;
+  const {
+    _id,
+    image,
+    title,
+    transport,
+    perks,
+    price,
+    quantity,
+    time,
+    date,
+    status,
+  } = ticket;
 
   return (
     <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200 hover:shadow-xl transition">
@@ -19,9 +29,8 @@ const AddedTicketCard = ({ ticket }) => {
             Departure: {date} {","} {time}
           </p>
           <p className="text-sm">Quantity: {quantity}</p>
-          <p className="text-sm font-medium">Total: ${price}</p>
           <div className="lg:col-span-2 flex gap-2">
-            <label className="label ">Perks: </label>
+            <label className="text-sm ">Perks: </label>
             <div className="flex flex-wrap items-center gap-2">
               {perks.map((perk) => (
                 <span
@@ -33,15 +42,39 @@ const AddedTicketCard = ({ ticket }) => {
               ))}
             </div>
           </div>
+          <p className={`text-sm font-medium `}>
+            Status:{" "}
+            <span
+              className={`${status === "pending" ? "bg-yellow-200" : ""} ${
+                status === "accepted" ? "bg-green-200" : ""
+              } ${
+                status === "rejected" ? "bg-red-200" : ""
+              } px-3 py-0.5 rounded-full font-normal`}
+            >
+              {" "}
+              {status}
+            </span>
+          </p>
+          <p className="text-sm font-medium">Price: ${price}</p>
         </div>
 
-        {/* See Details Button */}
-        {/* <Link
-          to={`/tickets/${_id}`}
-          className="mt-2 w-full bg-lime-500 hover:bg-lime-600 text-white text-center py-2 rounded-lg font-semibold transition"
-        >
-          See Details
-        </Link> */}
+        {/*  Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            className={`${
+              status === "rejected" ? "cursor-not-allowed" : "hover:bg-lime-600"
+            } mt-2 w-full bg-lime-500  text-white text-center py-2 rounded-lg font-semibold transition`}
+          >
+            Update
+          </button>
+          <button
+            className={`${
+              status === "rejected" ? "cursor-not-allowed" : "hover:bg-lime-600"
+            } mt-2 w-full bg-lime-500  text-white text-center py-2 rounded-lg font-semibold transition`}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );
