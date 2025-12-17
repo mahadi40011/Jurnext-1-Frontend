@@ -37,7 +37,9 @@ const ManageUsers = () => {
           </thead>
 
           <tbody className="text-gray-700 text-sm font-light">
-            <ManageUsersTableRow />
+            {users.map((user) => (
+              <ManageUsersTableRow key={user._id} refetch={refetch} user={ user} />
+            ))}
           </tbody>
         </table>
       </div>
