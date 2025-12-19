@@ -29,7 +29,7 @@ const RevenueOverview = ({ stats }) => {
         Revenue Overview
       </h2>
 
-      <div className="h-100 w-full">
+      <div className="h-100 border border-gray-200 rounded-md w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
