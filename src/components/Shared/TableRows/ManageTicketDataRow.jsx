@@ -54,7 +54,7 @@ const ManageTicketDataRow = ({ ticket, refetch }) => {
         {date} {time}
       </td>
       <td className="py-4 px-6 text-left border-r border-gray-200  whitespace-nowrap">
-        {vendor.email}
+        {vendor?.email}
       </td>
       <td className="py-4 px-6 text-center border-r border-gray-200">
         <p className="text-gray-900 ">
