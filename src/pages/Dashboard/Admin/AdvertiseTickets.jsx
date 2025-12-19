@@ -25,7 +25,7 @@ const AdvertiseTickets = () => {
           <thead>
             <tr className="bg-emerald-500 text-white uppercase text-xs leading-normal">
               <th className="py-4 px-6 text-left">Title</th>
-              <th className="py-4 px-6 text-left">Transport</th>
+              <th className="py-4 px-6 text-center">Transport</th>
               <th className="py-4 px-6 text-center">Route</th>
               <th className="py-4 px-6 text-center">Price</th>
               <th className="py-4 px-6 text-center">Departure</th>
