@@ -74,7 +74,7 @@ const ManageTicketDataRow = ({ ticket, refetch }) => {
         <div className="flex items-center justify-center gap-3">
           <button
             onClick={() => handleStatusUpdate("approved")}
-            disabled={status === "accepted"}
+            disabled={status === "approved"}
             className="px-4 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Approve
