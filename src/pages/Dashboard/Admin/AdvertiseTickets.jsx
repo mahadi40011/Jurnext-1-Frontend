@@ -2,7 +2,7 @@ import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
-// import AdvertiseTicketsTableRow from '../../../components/Shared/TableRows/AdvertiseTicketsTableRow';
+import AdvertiseTicketsTableRow from '../../../components/Shared/TableRows/AdvertiseTicketsTableRow';
 
 const AdvertiseTickets = () => {
   const axiosSecure = useAxiosSecure();
@@ -34,13 +34,13 @@ const AdvertiseTickets = () => {
           </thead>
 
           <tbody className="text-gray-700 text-sm font-light">
-            {/* {tickets.map((ticket) => (
+            {tickets.map((ticket) => (
               <AdvertiseTicketsTableRow
                 key={ticket._id}
                 refetch={refetch}
                 ticket={ticket}
               />
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>
