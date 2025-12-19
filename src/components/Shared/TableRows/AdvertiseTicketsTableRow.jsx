@@ -3,14 +3,14 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
 const AdvertiseTicketsTableRow = ({ ticket, refetch }) => {
-  const [advertise, setAdvertise] = useState(true);
+  const [advertise, setAdvertise] = useState(ticket?.advertise);
   const axiosSecure = useAxiosSecure();
   const { _id, title, transport, from, to, price, date, time } = ticket || {};
-
+  
   const handleAdvertise = async () => {
     try {
       const { data } = await axiosSecure.patch(`/advertise-ticket/${_id}`, {
-        advertise,
+        advertise: !advertise
       });
 
       if (data.modifiedCount > 0) {
