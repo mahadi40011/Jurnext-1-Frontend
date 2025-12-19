@@ -16,6 +16,7 @@ import RequestedBookings from "../pages/Dashboard/Vendor/RequestedBookings";
 import ManageTickets from "../pages/Dashboard/Admin/ManageTickets";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import RevenueOverview from "../pages/Dashboard/Vendor/RevenueOverview";
+import AdvertiseTickets from "../pages/Dashboard/Admin/AdvertiseTickets";
 
 export const router = createBrowserRouter([
   {
@@ -113,6 +114,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "advertise-tickets",
+        element: (
+          <PrivateRoute>
+            <AdvertiseTickets />
           </PrivateRoute>
         ),
       },

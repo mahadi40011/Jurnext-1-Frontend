@@ -22,8 +22,8 @@ const AdminMenu = () => {
       />
       <MenuItem
         icon={MdAirplaneTicket}
-        label="Advertise Tickets "
-        address="advertise-tickets "
+        label="Advertise Tickets"
+        address="advertise-tickets"
       />
     </>
   );
