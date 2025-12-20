@@ -3,6 +3,7 @@ import HeroSlider from '../../components/Home/HeroSlider';
 import AdvertiseSlider from '../../components/Home/AdvertiseSlider';
 import LatestTickets from '../../components/Home/LatestTickets';
 import PopularRoutes from '../../components/Home/PopularRoutes';
+import WhyChooseUs from '../../components/Home/WhyChooseUs';
 
 const Home = () => {
   return (
@@ -10,7 +11,8 @@ const Home = () => {
       <HeroSlider />
       <AdvertiseSlider />
       <LatestTickets />
-      <PopularRoutes/>
+      <PopularRoutes />
+      <WhyChooseUs/>
     </div>
   );
 };
