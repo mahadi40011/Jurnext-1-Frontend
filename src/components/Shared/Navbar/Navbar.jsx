@@ -1,12 +1,15 @@
 import React from "react";
 import logo from "../../../assets/logo.png";
 import Container from "../Container";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import HoverButton from "../Buttons/HoverButton";
 import { HiMenu } from "react-icons/hi";
 import NavbarMenu from "./NavbarMenu";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../LoadingSpinner";
+import MenuItem from "../MenuItem";
+import { LuCircleUser } from "react-icons/lu";
+import { GrLogout } from "react-icons/gr";
 
 const Navbar = () => {
   const { user, loading } = useAuth();
@@ -74,14 +77,32 @@ const Navbar = () => {
 
               <div className="hidden lg:block">
                 {user ? (
-                  <img
-                    className="rounded-full"
-                    referrerPolicy="no-referrer"
-                    src={user.photoURL}
-                    alt="profile"
-                    height="40"
-                    width="40"
-                  />
+                  <div className="dropdown dropdown-end">
+                    <div tabIndex={0} role="button" className="">
+                      <img
+                        className="rounded-full"
+                        referrerPolicy="no-referrer"
+                        src={user.photoURL}
+                        alt="profile"
+                        height="40"
+                        width="40"
+                      />
+                    </div>
+                    <ul
+                      tabIndex="-1"
+                      className="dropdown-content menu bg-base-100 rounded-box z-1 w-40 p-2 shadow-sm"
+                    >
+                      <MenuItem
+                        label={"Profile"}
+                        address={"/dashboard/profile"}
+                        icon={LuCircleUser}
+                      />
+                      <button className="flex cursor-pointer w-full items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
+                        <GrLogout className="w-5 h-5" />
+                        <span className="mx-4 font-medium">Logout</span>
+                      </button>
+                    </ul>
+                  </div>
                 ) : (
                   <NavLink to="/login">
                     <HoverButton label="Login" />
