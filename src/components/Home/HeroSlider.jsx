@@ -40,7 +40,7 @@ const HeroSlider = () => {
             modules={[Navigation, Pagination, Autoplay, EffectFade]}
             effect="fade"
             speed={1000}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             navigation={true}
             className="mySwiper h-full w-full"
