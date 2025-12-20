@@ -10,7 +10,7 @@ const BookedTicketCard = ({ ticket }) => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { status, quantity, ticketID, ticketDetails } = ticket;
+  const {_id, status, quantity, ticketID, ticketDetails } = ticket;
   const { title, image, from, to, time, date, price } = ticketDetails;
 
   // Countdown timer
@@ -43,6 +43,7 @@ const BookedTicketCard = ({ ticket }) => {
   // Pay Now handler
   const handlePayment = async () => {
     const paymentInfo = {
+      bookingId: _id,
       ticketID,
       image,
       title,
