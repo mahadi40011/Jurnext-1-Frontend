@@ -6,21 +6,18 @@ import HoverButton from "../Buttons/HoverButton";
 import { HiMenu } from "react-icons/hi";
 import NavbarMenu from "./NavbarMenu";
 import useAuth from "../../../hooks/useAuth";
-import LoadingSpinner from "../LoadingSpinner";
 import MenuItem from "../MenuItem";
 import { LuCircleUser } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 
 const Navbar = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logOut } = useAuth();
 
   const navItems = [
     { path: "/", name: "Home" },
     { path: "/all-ticket", name: "All-ticket" },
     { path: "/dashboard", name: "Dashboard" },
   ];
-
-  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
@@ -76,7 +73,11 @@ const Navbar = () => {
               </div>
 
               <div className="hidden lg:block">
-                {user ? (
+                {loading ? (
+                  <div className="skeleton h-10 w-10 shrink-0 flex justify-center items-center rounded-full">
+                    <span className="loading loading-ring loading-xl"></span>
+                  </div>
+                ) : user ? (
                   <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="">
                       <img
@@ -97,7 +98,10 @@ const Navbar = () => {
                         address={"/dashboard/profile"}
                         icon={LuCircleUser}
                       />
-                      <button className="flex cursor-pointer w-full items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
+                      <button
+                        onClick={logOut}
+                        className="flex cursor-pointer w-full items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+                      >
                         <GrLogout className="w-5 h-5" />
                         <span className="mx-4 font-medium">Logout</span>
                       </button>
