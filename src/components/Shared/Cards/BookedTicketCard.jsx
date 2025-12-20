@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 // import StripeCheckout from "react-stripe-checkout"; // npm install react-stripe-checkout
 import dayjs from "dayjs";
+import useAuth from "../../../hooks/useAuth";
+import LoadingSpinner from "../LoadingSpinner";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const BookedTicketCard = ({ ticket }) => {
   const [timeLeft, setTimeLeft] = useState("");
+  const { user, loading } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-  const { _id, status, quantity, ticketDetails } = ticket;
+  const { status, quantity, ticketID, ticketDetails } = ticket;
   const { title, image, from, to, time, date, price } = ticketDetails;
 
   // Countdown timer
@@ -36,15 +41,30 @@ const BookedTicketCard = ({ ticket }) => {
   }, [date, time, status]);
 
   // Pay Now handler
-  const handleToken = (token) => {
-    // Call backend to process payment
-    console.log("Stripe token:", token);
-    // Simulate successful payment
-    // onPaymentSuccess(ticket.id); // parent can update booked quantity
+  const handlePayment = async () => {
+    const paymentInfo = {
+      ticketID,
+      image,
+      title,
+      price,
+      quantity,
+      customer: {
+        name: user?.displayName,
+        email: user?.email,
+      },
+    };
+
+    const { data } = await axiosSecure.post(
+      `/create-checkout-session`,
+      paymentInfo
+    );
+    window.location.href = data.url;
   };
 
   const totalPrice = price * quantity;
   const departurePassed = dayjs(`${date} ${time}`).isBefore(dayjs());
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden border">
@@ -69,13 +89,7 @@ const BookedTicketCard = ({ ticket }) => {
 
         {/* Pay Now Button */}
         {status === "accepted" && !departurePassed && (
-          <div
-            stripeKey="your_stripe_publishable_key_here"
-            token={handleToken}
-            amount={totalPrice * 100} // cents
-            name={title}
-            currency="USD"
-          >
+          <div onClick={handlePayment}>
             <button className="mt-2 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded-lg font-semibold transition">
               Pay Now
             </button>
