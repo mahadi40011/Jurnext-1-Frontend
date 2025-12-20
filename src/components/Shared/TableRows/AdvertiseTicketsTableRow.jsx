@@ -48,7 +48,7 @@ const AdvertiseTicketsTableRow = ({ ticket, refetch }) => {
           onClick={handleAdvertise}
           className="px-4 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {advertise ? "Advertise" : "Remove"}
+          {advertise ? "Remove" : "Advertise"}
         </button>
       </td>
     </tr>
