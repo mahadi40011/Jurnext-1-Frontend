@@ -18,6 +18,7 @@ import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import RevenueOverview from "../pages/Dashboard/Vendor/RevenueOverview";
 import AdvertiseTickets from "../pages/Dashboard/Admin/AdvertiseTickets";
 import PaymentSuccess from "../pages/Payment/PaymentSuccess";
+import TransactionHistory from "../pages/Dashboard/Customer/TransactionHistory";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookedTicket />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "transaction-history",
+        element: (
+          <PrivateRoute>
+            <TransactionHistory />
           </PrivateRoute>
         ),
       },
