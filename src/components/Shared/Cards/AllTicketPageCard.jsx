@@ -1,48 +1,116 @@
 import React from "react";
 import { Link } from "react-router";
+import {
+  FaBus,
+  FaPlane,
+  FaShip,
+  FaTrain,
+  FaClock,
+  FaCalendarAlt,
+  FaChevronRight,
+} from "react-icons/fa";
 
 const AllTicketPageCard = ({ ticket }) => {
-  const {_id, image, title, transport, perks, price, quantity, time, date } =
-    ticket;
+  const {
+    _id,
+    image,
+    title,
+    transport,
+    perks,
+    price,
+    quantity,
+    time,
+    date,
+    from,
+    to,
+  } = ticket;
+
+  const getIcon = (type) => {
+    switch (type?.toLowerCase()) {
+      case "bus":
+        return <FaBus />;
+      case "flight":
+        return <FaPlane />;
+      case "train":
+        return <FaTrain />;
+      case "launch":
+        return <FaShip />;
+      default:
+        return <FaBus />;
+    }
+  };
 
   return (
-    <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200 hover:shadow-xl transition">
-      <img src={image} alt={title} className="w-full h-40 object-cover" />
+    <div className="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden flex flex-col group">
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+        <div className="absolute top-4 left-4 flex gap-2">
+          <span className="bg-white/90 backdrop-blur-md text-gray-800 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+            {getIcon(transport)} {transport}
+          </span>
+        </div>
+        <div className="absolute bottom-4 right-4">
+          <span
+            className={`px-3 py-1 rounded-lg text-[10px] font-bold text-white shadow-lg ${
+              quantity > 0 ? "bg-lime-500" : "bg-red-500"
+            }`}
+          >
+            {quantity > 0 ? `${quantity} Tickets Left` : "Sold Out"}
+          </span>
+        </div>
+      </div>
 
-      <div className="p-4 flex flex-col gap-2">
-        <div className="space-y-1">
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="text-sm text-gray-600">
-            {ticket.from} → {ticket.to}
-          </p>
-          <p className="text-sm">Transport Type: {transport}</p>
-          <p className="text-sm">
-            Departure: {date} {","} {time}
-          </p>
-          <p className="text-sm">Quantity: {quantity}</p>
-          <p className="text-sm font-medium">Total: ${price}</p>
-          <div className="lg:col-span-2 flex gap-2">
-            <label className="label ">Perks: </label>
-            <div className="flex flex-wrap items-center gap-2">
-              {perks.map((perk) => (
-                <span
-                  key={perk}
-                  className="bg-green-200 px-2 rounded-lg text-xs"
-                >
-                  {perk}
-                </span>
-              ))}
-            </div>
+      <div className="p-6 flex flex-col grow">
+        <h3 className="text-xl font-black text-gray-800 mb-2 group-hover:text-lime-600 transition-colors line-clamp-1 uppercase tracking-tight">
+          {title}
+        </h3>
+
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-xs font-bold text-lime-600 bg-lime-50 px-2 py-1 rounded">
+            {from}
+          </span>
+          <div className="h-px grow bg-dashed bg-gray-300 border-t border-dashed"></div>
+          <span className="text-xs font-bold text-lime-600 bg-lime-50 px-2 py-1 rounded">
+            {to}
+          </span>
+        </div>
+
+        <div className="flex justify-between items-center px-2 mb-5 text-gray-500">
+          <div className="flex items-center gap-2 text-[11px] font-medium">
+            <FaCalendarAlt className="text-lime-500" /> {date}
+          </div>
+          <div className="flex items-center gap-2 text-[11px] font-medium">
+            <FaClock className="text-lime-500" /> {time}
           </div>
         </div>
 
-        {/* See Details Button */}
-        <Link
-          to={`/tickets/${_id}`}
-          className="mt-2 w-full bg-lime-500 hover:bg-lime-600 text-white text-center py-2 rounded-lg font-semibold transition"
-        >
-          See Details
-        </Link>
+        <div className="flex flex-wrap gap-1.5 mb-6">
+          {perks?.slice(0, 3).map((perk, idx) => (
+            <span
+              key={idx}
+              className="text-[9px] font-bold bg-gray-50 text-gray-400 border border-gray-100 px-2 py-0.5 rounded uppercase"
+            >
+              • {perk}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+          <span className="text-2xl font-black text-gray-800 mb-2 group-hover:text-lime-600 transition-colors line-clamp-1 uppercase tracking-tight">
+            ${price}
+          </span>
+
+          <Link
+            to={`/tickets/${_id}`}
+            className="flex items-center gap-2 bg-lime-600 hover:bg-lime-800 text-white px-5 py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all shadow-lg hover:shadow-lime-200 active:scale-95"
+          >
+            Details <FaChevronRight />
+          </Link>
+        </div>
       </div>
     </div>
   );

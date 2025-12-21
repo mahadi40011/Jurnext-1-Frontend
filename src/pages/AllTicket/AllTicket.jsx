@@ -20,7 +20,7 @@ const AllTicket = () => {
 
   return (
     <Container>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+      <div className=" sm:pt-3 lg:pt-5 pb-8 sm:pb-12 lg:pb-15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {tickets.map((ticket) => (
           <AllTicketPageCard key={ticket._id} ticket={ticket} />
         ))}
