@@ -179,6 +179,14 @@ const SignUp = () => {
                     value: 6,
                     message: "Password must be at least 6 characters",
                   },
+                  validate: {
+                    hasUppercase: (value) =>
+                      /[A-Z]/.test(value) ||
+                      "Password must have at least one uppercase letter",
+                    hasLowercase: (value) =>
+                      /[a-z]/.test(value) ||
+                      "Password must have at least one lowercase letter",
+                  },
                 })}
               />
               {errors.password && (
