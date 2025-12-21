@@ -19,11 +19,13 @@ import RevenueOverview from "../pages/Dashboard/Vendor/RevenueOverview";
 import AdvertiseTickets from "../pages/Dashboard/Admin/AdvertiseTickets";
 import PaymentSuccess from "../pages/Payment/PaymentSuccess";
 import TransactionHistory from "../pages/Dashboard/Customer/TransactionHistory";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -54,6 +56,7 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
