@@ -10,17 +10,41 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
-const RevenueOverview = ({ stats }) => {
-  // আপনার API থেকে আসা ডাটা এই ফরম্যাটে সাজিয়ে নিন
+const RevenueOverview = () => {
+  const { user, loading } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: totalRevenue = [], isLoading } = useQuery({
+    queryKey: ["total Revenue", user?.email],
+    queryFn: async () => {
+      const result = await axiosSecure(`/total-revenue`);
+      return result.data;
+    },
+  });
+
+  if (isLoading & loading) return <LoadingSpinner />;
+
   const data = [
     {
       name: "Total Revenue",
-      value: stats?.totalRevenue || 0,
+      value: totalRevenue?.revenue || 0,
       color: "#0088FE",
     },
-    { name: "Tickets Sold", value: stats?.totalSold || 0, color: "#00C49F" },
-    { name: "Tickets Added", value: stats?.totalAdded || 0, color: "#FFBB28" },
+    {
+      name: "Tickets Sold",
+      value: totalRevenue?.sold || 0,
+      color: "#00C49F",
+    },
+    {
+      name: "Tickets Added",
+      value: totalRevenue?.tickets || 0,
+      color: "#FFBB28",
+    },
   ];
 
   return (
