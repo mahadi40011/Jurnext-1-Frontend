@@ -6,109 +6,121 @@ import logo from "../../../assets/logo.png";
 import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
 import { AiOutlineBars } from "react-icons/ai";
-import { BsGraphUp } from "react-icons/bs";
+import { HiX } from "react-icons/hi";
 
 // User Menu
 import MenuItem from "../../Shared/MenuItem";
 import AdminMenu from "./Menu/AdminMenu";
 import VendorMenu from "./Menu/VendorMenu";
 import CustomerMenu from "./Menu/CustomerMenu";
-// import useRole from '../../../hooks/useRole'
-// import LoadingSpinner from '../../Shared/LoadingSpinner'
 
 const Sidebar = () => {
   const { logOut } = useAuth();
-  const [isActive, setActive] = useState(false);
-  // const {role, isRoleLoading} = useRole()
+  const [isActive, setActive] = useState(true); // Default active for desktop
 
-  // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
   };
 
-  // if (isRoleLoading) return <LoadingSpinner/>
-
   return (
     <>
-      {/* Small Screen Navbar, only visible till md breakpoint */}
-      <div className="bg-gray-100 text-gray-800 flex justify-between items-center md:hidden">
-        <div>
-          <div className="flex justify-start items-center">
-            <div className="md:w-12 md:h-12 w-8 h-8">
-              <img className="h-full " src={logo} alt="Logo" />
-            </div>
-            <span className="font-bold text-3xl md:text-4xl">Jurnext</span>
-          </div>
-        </div>
-
+      {/* 1. Mobile Header (Only visible on small screens) */}
+      <div className="bg-gray-900 text-gray-100 flex justify-between items-center md:hidden px-4 py-3 shadow-lg">
+        <Link to="/" className="flex items-center gap-2">
+          <img className="w-8 h-8" src={logo} alt="Logo" />
+          <span className="font-black text-xl tracking-tighter">
+            JUR<span className="text-lime-500">NEXT</span>
+          </span>
+        </Link>
         <button
           onClick={handleToggle}
-          className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-200"
+          className="p-2 rounded-lg bg-gray-800 text-lime-500 hover:bg-gray-700 transition-colors"
         >
-          <AiOutlineBars className="h-5 w-5" />
+          {isActive || <AiOutlineBars size={24} />}
         </button>
       </div>
 
-      {/* Sidebar */}
+      {/* 2. Sidebar Container */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100  space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
-          isActive && "-translate-x-full"
-        }  md:translate-x-0  transition duration-200 ease-in-out`}
+        className={`z-20 fixed inset-y-0 left-0 flex flex-col justify-between bg-white h-screen border-r border-gray-100 transition-all duration-300 ease-in-out md:w-72 w-full transform ${
+          isActive ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 shadow-2xl md:shadow-none`}
       >
-        <div className="flex flex-col h-full">
-          {/* Top Content */}
-          <div>
-            {/* Logo */}
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto">
-              <div className="flex justify-start items-center">
-                <div className="md:w-12 md:h-12 w-8 h-8">
-                  <img className="h-full " src={logo} alt="Logo" />
-                </div>
-                <span className="font-bold text-3xl md:text-4xl">Jurnext</span>
-              </div>
-            </div>
+        <div className="flex flex-col h-full overflow-y-auto custom-scrollbar">
+          {/* Logo Section */}
+          {/* Mobile screen logo on sidebar, when is open */}
+          <div className="bg-gray-900 text-gray-100 flex justify-between items-center md:hidden px-4 py-3 shadow-lg">
+            <Link to="/" className="flex items-center gap-2">
+              <img className="w-8 h-8" src={logo} alt="Logo" />
+              <span className="font-black text-xl tracking-tighter">
+                JUR<span className="text-lime-500">NEXT</span>
+              </span>
+            </Link>
+            <button
+              onClick={handleToggle}
+              className="p-2 rounded-lg bg-gray-800 text-lime-500 hover:bg-gray-700 transition-colors"
+            >
+              {isActive && <HiX size={24} />}
+            </button>
           </div>
 
-          {/* Middle Content */}
-          <div className="flex flex-col justify-between flex-1 mt-6">
-            {/*  Menu Items */}
-            <nav>
-              {/* Common Menu */}
-              {/* <MenuItem
-                icon={BsGraphUp}
-                label="Statistics"
-                address="/dashboard"
-              /> */}
-              {/* Role-Based Menu */}
+          {/* md screen logo on sidebar */}
+          <div className="px-6 py-8 hidden md:block">
+            <Link to="/" className="flex items-center gap-3 group">
+              <img
+                className="w-10 h-10 group-hover:rotate-12 transition-transform duration-300"
+                src={logo}
+                alt="Logo"
+              />
+              <span className="font-black text-2xl tracking-tighter text-gray-800 uppercase">
+                Jur<span className="text-lime-500">next</span>
+              </span>
+            </Link>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex-1 px-4">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4 mt-5 md:mt-0">
+              Main Menu
+            </p>
+            <nav className="space-y-1">
+              {/* Role-Based Menus */}
               <AdminMenu />
               <VendorMenu />
               <CustomerMenu />
-              {/* {role === "customer" && <CustomerMenu />}
-                {role === "seller" && <VendorMenu />}
-                {role === "admin" && <AdminMenu />} */}
             </nav>
           </div>
 
-          {/* Bottom Content */}
-          <div>
-            <hr />
-
-            <MenuItem
-              icon={FcSettings}
-              label="Profile"
-              address="/dashboard/profile"
-            />
-            <button
-              onClick={logOut}
-              className="flex cursor-pointer w-full items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
-            >
-              <GrLogout className="w-5 h-5" />
-
-              <span className="mx-4 font-medium">Logout</span>
-            </button>
+          {/* Footer Section */}
+          <div className="p-4 border-t border-gray-50 bg-gray-50/50">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4">
+              Account
+            </p>
+            <div className="space-y-1">
+              <MenuItem
+                icon={FcSettings}
+                label="My Profile"
+                address="/dashboard/profile"
+              />
+              <button
+                onClick={logOut}
+                className="flex w-full items-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300 font-bold text-sm group"
+              >
+                <GrLogout className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                <span className="mx-4">Logout</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* 3. Overlay for Mobile */}
+      {isActive && (
+        <div
+          onClick={handleToggle}
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-10 md:hidden transition-opacity"
+        />
+      )}
     </>
   );
 };
