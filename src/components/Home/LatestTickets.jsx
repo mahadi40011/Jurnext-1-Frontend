@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../Shared/LoadingSpinner";
+import Heading from "../Shared/Heading/Heading";
 
 const LatestTickets = () => {
   const axiosSecure = useAxiosSecure();
@@ -21,14 +22,10 @@ const LatestTickets = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-800">
-              Latest Tickets
-            </h2>
-            <p className="text-gray-500 mt-2 font-medium">
-              Recently added premium travel deals
-            </p>
-          </div>
+          <Heading
+            title="Latest Tickets"
+            subtitle="Recently added premium travel deals"
+          />
           <Link
             to="/all-tickets"
             className="text-lime-600 font-bold hover:underline"

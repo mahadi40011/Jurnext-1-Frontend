@@ -1,4 +1,5 @@
 import { FaShieldAlt, FaTicketAlt, FaHeadset, FaBolt } from "react-icons/fa";
+import Heading from "../Shared/Heading/Heading";
 
 const WhyChooseUs = () => {
   const features = [
@@ -27,17 +28,13 @@ const WhyChooseUs = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-black text-gray-800 mb-4">
-            Why Choose Jurnext?
-          </h2>
-          <p className="text-gray-500">
-            We provide the most reliable and fastest ticket booking experience
-            for your journey.
-          </p>
-        </div>
+        <Heading
+          title=" Why Choose Jurnext?"
+          subtitle="We provide the most reliable and fastest ticket booking experience
+            for your journey."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-10">
           {features.map((feature, index) => (
             <div
               key={index}
