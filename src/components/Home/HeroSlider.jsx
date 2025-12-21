@@ -35,7 +35,7 @@ const HeroSlider = () => {
   return (
     <>
       <Container>
-        <div className=" w-full h-50 sm:h-70 md:h-80 lg:h-100">
+        <div className="px-2 w-full h-50 sm:h-70 md:h-80 lg:h-100">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectFade]}
             effect="fade"
@@ -62,7 +62,7 @@ const HeroSlider = () => {
                     </p>
                     <Link
                       to="/tickets"
-                      className="bg-lime-500/80 hover:bg-lime-600 text-white text-sm font-medium md:font-semibold py-1.5 px-5 md:py-2.5 md:px-7 lg:py-3 lg:px-8 rounded-full transition duration-300 transform hover:scale-105"
+                      className="flex items-center gap-2 bg-lime-600 hover:bg-lime-800 text-white text-sm font-medium md:font-semibold py-1.5 px-5 md:py-2.5 md:px-7 lg:py-3 lg:px-8 rounded-full duration-300 transition-all active:scale-95 shadow-md hover:shadow-lime-100"
                     >
                       Explore Tickets
                     </Link>

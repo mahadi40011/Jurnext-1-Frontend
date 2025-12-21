@@ -118,7 +118,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="hidden md:flex items-center bg-gray-900 hover:bg-lime-500 text-white px-8 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest transition-all shadow-lg active:scale-95"
+                className="hidden md:flex items-center bg-lime-600 hover:bg-lime-800 text-white px-8 py-2.5 rounded-full font-bold text-xs  uppercase tracking-widest transition-all shadow-lg hover:shadow-lime-200 active:scale-95"
               >
                 Login
               </Link>
@@ -151,7 +151,7 @@ const Navbar = () => {
                         <HiX size={24} />
                       </label>
                     </div>
-       
+
                     <div className="flex flex-col gap-4">
                       {navItems.map((item, idx) => (
                         <NavLink
@@ -165,7 +165,7 @@ const Navbar = () => {
                       {!user && (
                         <Link
                           to="/login"
-                          className="bg-lime-500 text-white p-3 rounded-xl text-center font-bold mt-4"
+                          className="bg-lime-600 hover:bg-lime-800 text-white p-3 rounded-xl text-center font-bold mt-4 transition-all shadow-lg hover:shadow-lime-200 active:scale-95"
                         >
                           Login
                         </Link>
