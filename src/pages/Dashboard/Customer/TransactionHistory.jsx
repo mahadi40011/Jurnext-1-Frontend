@@ -2,6 +2,7 @@ import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
+import TransactionHistoryTableRow from '../../../components/Shared/TableRows/TransactionHistoryTableRow';
 
 const TransactionHistory = () => {
   const axiosSecure = useAxiosSecure();
@@ -9,7 +10,6 @@ const TransactionHistory = () => {
   const {
     data: transactions = [],
     isLoading,
-    refetch,
   } = useQuery({
     queryKey: "Transactions",
     queryFn: async () => {
@@ -19,7 +19,6 @@ const TransactionHistory = () => {
   });
 
   if (isLoading) return <LoadingSpinner />;
-  console.log(transactions);
 
   return (
     <div className="container mx-auto px-2 sm:px-4">
@@ -27,17 +26,17 @@ const TransactionHistory = () => {
         <table className="table-auto w-full bg-white">
           <thead>
             <tr className="bg-emerald-500 text-white uppercase text-xs leading-normal">
-              <th className="py-4 px-6 text-left">Transaction ID</th>
-              <th className="py-4 px-6 text-center">Transport</th>
-              <th className="py-4 px-6 text-center">Route</th>
-              <th className="py-4 px-6 text-center">Price</th>
-              <th className="py-4 px-6 text-center">Departure</th>
-              <th className="py-4 px-6 text-center">Actions</th>
+              <th className="py-4 px-6 text-left">Ticket title</th>
+              <th className="py-4 px-6 text-center">Transaction ID</th>
+              <th className="py-4 px-6 text-center">amount</th>
+              <th className="py-4 px-6 text-center">date</th>
             </tr>
           </thead>
 
           <tbody className="text-gray-700 text-sm font-light">
-            
+            {transactions.map((transaction) => (
+              <TransactionHistoryTableRow key={transaction._id} transaction={transaction} />
+            ))}
           </tbody>
         </table>
       </div>
