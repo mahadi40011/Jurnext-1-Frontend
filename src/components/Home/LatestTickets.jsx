@@ -27,7 +27,7 @@ const LatestTickets = () => {
             subtitle="Recently added premium travel deals"
           />
           <Link
-            to="/all-tickets"
+            to="/all-ticket"
             className="text-lime-600 font-bold hover:underline"
           >
             View All →
@@ -51,7 +51,7 @@ const LatestTickets = () => {
                 <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-gray-700 uppercase tracking-widest">
                   {ticket.transport}
                 </span>
-                <span className="absolute bottom-4 right-4 bg-lime-500 text-white text-[10px] font-bold px-2 py-1 rounded-md">
+                <span className="absolute bottom-4 right-4 bg-lime-600 text-white text-[10px] font-bold px-2 py-1 rounded-md">
                   {ticket.quantity} Left
                 </span>
               </div>
@@ -63,8 +63,8 @@ const LatestTickets = () => {
                     {ticket.title}
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-xl font-black text-gray-900">
-                      ${ticket.price}
+                    <span className="text-xl font-black text-gray-800 leading-tight group-hover:text-lime-600 transition-colors">
+                      {ticket.price} TK
                     </span>
                     <span className="text-[10px] text-gray-400 font-bold uppercase">
                       /unit
@@ -87,7 +87,7 @@ const LatestTickets = () => {
                 {/* Action Button */}
                 <div className="mt-auto">
                   <Link
-                    to={`/ticket-details/${ticket._id}`}
+                    to={`/tickets/${ticket._id}`}
                     className="w-full inline-flex items-center justify-center bg-lime-600 hover:bg-lime-800 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all active:scale-95 shadow-lg hover:shadow-lime-200"
                   >
                     See Details

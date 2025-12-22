@@ -18,7 +18,7 @@ const PopularRoutesCard = ({ route }) => {
         </p>
         <h3 className="text-xl font-bold">{route.to}</h3>
         <p className="mt-2 text-sm font-semibold bg-white/20 backdrop-blur-md inline-block px-2 py-1 rounded">
-          Starting from ${route.price}
+          Starting from {route.price} TK
         </p>
       </div>
     </div>

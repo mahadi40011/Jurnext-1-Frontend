@@ -68,7 +68,7 @@ const HeroSlider = () => {
                       {slide.subtitle}
                     </p>
                     <Link
-                      to="/tickets"
+                      to="/all-ticket"
                       className="flex items-center gap-2 bg-lime-600 hover:bg-lime-800 text-white text-sm font-medium md:font-semibold py-1.5 px-5 md:py-2.5 md:px-7 lg:py-3 lg:px-8 rounded-full duration-300 transition-all active:scale-95 shadow-md hover:shadow-lime-100"
                     >
                       Explore Tickets
