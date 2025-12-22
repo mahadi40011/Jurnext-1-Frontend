@@ -25,8 +25,11 @@ const AddTicketForm = () => {
         return await axiosSecure.post(`/tickets`, payload);
       },
       onSettled: (data, err) => {
+        console.log(data)
         if (data) {
-          toast.success("Ticket Added Successfully");
+          data.data.message
+            ? toast.error(data.data.message)
+            : toast.success("Ticket Added Successfully");
           mutationReset();
         }
         if (err) {
