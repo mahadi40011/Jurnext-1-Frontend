@@ -1,5 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectCoverflow,
+} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -7,6 +12,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const AdvertiseSlider = () => {
   const axiosSecure = useAxiosSecure();
@@ -23,7 +29,7 @@ const AdvertiseSlider = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className=" py-16 px-4 max-w-7xl mx-auto">
+    <div className=" py-16 max-w-7xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
         Featured Advertisements
       </h2>
@@ -33,7 +39,10 @@ const AdvertiseSlider = () => {
         effect={"coverflow"}
         spaceBetween={20}
         slidesPerView={1}
-        navigation={true}
+        navigation={{
+          nextEl: ".custom-button-next",
+          prevEl: ".custom-button-prev",
+        }}
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000 }}
@@ -46,7 +55,6 @@ const AdvertiseSlider = () => {
         {advertiseTickets.map((ticket) => (
           <SwiperSlide key={ticket?._id}>
             <div className="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full flex flex-col group">
-  
               <div className="relative overflow-hidden h-56">
                 <img
                   src={ticket.image}
@@ -61,7 +69,7 @@ const AdvertiseSlider = () => {
                   </span>
                 </div>
                 <div className="absolute bottom-4 right-4">
-                  <span className="bg-lime-500 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
+                  <span className="bg-lime-600 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
                     {ticket.quantity} Tickets Left
                   </span>
                 </div>
@@ -107,8 +115,8 @@ const AdvertiseSlider = () => {
 
                 <div className="flex justify-between items-center pt-2 border-t border-dashed border-gray-200">
                   <div>
-                    <span className="text-3xl font-black text-lime-600">
-                      ${ticket.price}
+                    <span className="text-3xl font-black text-gray-800 leading-tight group-hover:text-lime-600 transition-colors">
+                      {ticket.price} TK
                     </span>
                   </div>
                   <Link
@@ -122,6 +130,14 @@ const AdvertiseSlider = () => {
             </div>
           </SwiperSlide>
         ))}
+
+        <div className="custom-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-lime-200/50 hover:bg-lime-500 hover:text-white text-lime-500 rounded-full flex items-center justify-center cursor-pointer shadow-md transition-all duration-300">
+          <IoIosArrowBack />
+        </div>
+
+        <div className="custom-button-next absolute right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-lime-200/50 hover:bg-lime-500 hover:text-white text-lime-600 rounded-full flex items-center justify-center cursor-pointer shadow-md transition-all duration-300">
+          <IoIosArrowForward />
+        </div>
       </Swiper>
     </div>
   );
