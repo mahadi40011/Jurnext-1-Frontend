@@ -28,15 +28,15 @@ const ManageTickets = () => {
       <div className="overflow-x-auto rounded-xl border border-gray-300">
         <table className="table-auto w-full bg-white">
           <thead>
-            <tr className="bg-emerald-500 text-white uppercase text-xs leading-normal">
-              <th className="py-4 px-6 text-left">Title</th>
-              <th className="py-4 px-6 text-left">Transport</th>
-              <th className="py-4 px-6 text-center">Route</th>
-              <th className="py-4 px-6 text-center">Price</th>
-              <th className="py-4 px-6 text-center">Quantity</th>
-              <th className="py-4 px-6 text-center">Departure</th>
-              <th className="py-4 px-6 text-left">Vendor</th>
-              <th className="py-4 px-6 text-center">Status</th>
+            <tr className="bg-lime-500/80 text-white uppercase text-xs leading-normal">
+              <th className="py-4 px-6 border-r border-gray-300 text-left">Title</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-left">Transport</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-center">Route</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-center">Price</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-center">Quantity</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-center">Departure</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-left">Vendor</th>
+              <th className="py-4 px-6 border-r border-gray-300 text-center">Status</th>
               <th className="py-4 px-6 text-center">Actions</th>
             </tr>
           </thead>

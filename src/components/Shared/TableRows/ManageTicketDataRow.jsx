@@ -44,8 +44,8 @@ const ManageTicketDataRow = ({ ticket, refetch }) => {
       <td className="py-4 px-6 text-left border-r border-gray-200 whitespace-nowrap font-semibold text-blue-600">
         {from} &rarr; {to}
       </td>
-      <td className="py-4 px-6 text-center border-r border-gray-200 font-bold">
-        ${price}
+      <td className="py-4 px-6 text-center border-r border-gray-200 font-bold whitespace-nowrap">
+        {price} TK
       </td>
       <td className="py-4 px-6 text-center border-r border-gray-200">
         {quantity}
@@ -59,10 +59,10 @@ const ManageTicketDataRow = ({ ticket, refetch }) => {
       <td className="py-4 px-6 text-center border-r border-gray-200">
         <p className="text-gray-900 ">
           <span
-            className={`${status === "pending" ? "bg-yellow-200/50" : ""} ${
-              status === "accepted" ? "bg-green-200/50" : ""
+            className={`${status === "pending" ? "bg-yellow-200/40" : ""} ${
+              status === "approved" ? "bg-green-200/40" : ""
             } ${
-              status === "rejected" ? "bg-red-200/50" : ""
+              status === "rejected" ? "bg-red-200/40" : ""
             } px-3 pb-0.5 text-xs rounded-full font-normal`}
           >
             {" "}
@@ -75,7 +75,7 @@ const ManageTicketDataRow = ({ ticket, refetch }) => {
           <button
             onClick={() => handleStatusUpdate("approved")}
             disabled={status === "approved"}
-            className="px-4 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-1.5 rounded-lg bg-lime-200 text-lime-800 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Approve
           </button>
