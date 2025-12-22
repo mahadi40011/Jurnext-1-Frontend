@@ -58,7 +58,7 @@ const ManageUsersTableRow = ({ user, refetch }) => {
           {/* Make Admin Button */}
           <button
             onClick={() => handleRoleUpdate(_id, "admin")}
-            disabled={role === "admin"}
+            disabled={role === "admin" || fraud === true}
             className="px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-bold text-[10px] uppercase hover:bg-indigo-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all border border-indigo-200 whitespace-nowrap"
           >
             Make Admin
