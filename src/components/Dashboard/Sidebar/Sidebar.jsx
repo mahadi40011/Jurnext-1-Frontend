@@ -13,14 +13,19 @@ import MenuItem from "../../Shared/MenuItem";
 import AdminMenu from "./Menu/AdminMenu";
 import VendorMenu from "./Menu/VendorMenu";
 import CustomerMenu from "./Menu/CustomerMenu";
+import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../Shared/LoadingSpinner";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
+  const { role, isRoleLoading } = useRole();
   const [isActive, setActive] = useState(true); // Default active for desktop
 
   const handleToggle = () => {
     setActive(!isActive);
   };
+
+  if (isRoleLoading) return <LoadingSpinner />;
 
   return (
     <>
@@ -83,11 +88,12 @@ const Sidebar = () => {
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4 mt-5 md:mt-0">
               Main Menu
             </p>
+            
+            {/* Role-Based Menus */}
             <nav className="space-y-1">
-              {/* Role-Based Menus */}
-              <AdminMenu />
-              <VendorMenu />
-              <CustomerMenu />
+              {role === "admin" && <AdminMenu />}
+              {role === "vendor" && <VendorMenu />}
+              {role === "customer" && <CustomerMenu />}
             </nav>
           </div>
 
