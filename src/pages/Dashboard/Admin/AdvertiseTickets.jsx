@@ -16,19 +16,18 @@ const AdvertiseTickets = () => {
   });
 
   if (isLoading) return <LoadingSpinner />;
-  console.log(tickets);
    
   return (
     <div className="container mx-auto px-2 sm:px-4">
       <div className="overflow-x-auto rounded-xl border border-gray-300">
         <table className="table-auto w-full bg-white">
           <thead>
-            <tr className="bg-emerald-500 text-white uppercase text-xs leading-normal">
-              <th className="py-4 px-6 text-left">Title</th>
-              <th className="py-4 px-6 text-center">Transport</th>
-              <th className="py-4 px-6 text-center">Route</th>
-              <th className="py-4 px-6 text-center">Price</th>
-              <th className="py-4 px-6 text-center">Departure</th>
+            <tr className="bg-lime-500 text-white uppercase text-xs leading-normal">
+              <th className="py-4 px-6 border-r border-gray-400 text-left">Title</th>
+              <th className="py-4 px-6 border-r border-gray-400 text-center">Transport</th>
+              <th className="py-4 px-6 border-r border-gray-400 text-center">Route</th>
+              <th className="py-4 px-6 border-r border-gray-400 text-center">Price</th>
+              <th className="py-4 px-6 border-r border-gray-400 text-center">Departure</th>
               <th className="py-4 px-6 text-center">Actions</th>
             </tr>
           </thead>

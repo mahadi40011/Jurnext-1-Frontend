@@ -16,7 +16,7 @@ const AdvertiseTicketsTableRow = ({ ticket, refetch }) => {
       if (data.modifiedCount > 0) {
         refetch();
         setAdvertise(!advertise)
-        toast.success(`${advertise? "Advertised Successful": "Remove Advertise Successful"}`);
+        toast.success(`${!advertise? "Advertised Successful": "Remove Advertise Successful"}`);
       } else {
         toast.info("Advertised Unsuccessful");
       }
@@ -46,7 +46,7 @@ const AdvertiseTicketsTableRow = ({ ticket, refetch }) => {
       <td className="py-4 px-6 text-left flex justify-center items-center text-xs">
         <button
           onClick={handleAdvertise}
-          className="px-4 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs uppercase tracking-wider hover:bg-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-1.5 rounded-lg bg-lime-200 text-lime-700 font-bold text-xs uppercase tracking-wider hover:bg-lime-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {advertise ? "Remove" : "Advertise"}
         </button>
