@@ -2,6 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import { Link } from "react-router";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 // Swiper styles
 import "swiper/css";
@@ -14,19 +15,22 @@ const HeroSlider = () => {
   const slides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30",
+      image:
+        "https://i.ibb.co.com/TDzCnqVD/photo-1492684223066-81342ee5ff30.jpg",
       title: "Experience the Best Events",
       subtitle: "Book your tickets for upcoming concerts and workshops.",
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4",
+      image:
+        "https://i.ibb.co.com/JFchVVb1/images-q-tbn-ANd9-Gc-TBPHSCh3b-Ziu-Q9d8ha-Q3hp-D0-Ht-M953-QBSFTw-s.jpg",
       title: "Secure & Fast Booking",
       subtitle: "Get your digital tickets instantly with our secure platform.",
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1472653431158-6364773b2a56",
+      image:
+        "https://i.ibb.co.com/k6sc1CPv/images-q-tbn-ANd9-Gc-QSTW-Qze-ROHWCIoa-J59v-Zy3n-Wyvp-Ah-LTwokg-s.jpg",
       title: "Discover New Experiences",
       subtitle: "Join thousands of people attending amazing events daily.",
     },
@@ -35,14 +39,17 @@ const HeroSlider = () => {
   return (
     <>
       <Container>
-        <div className="px-2 w-full h-50 sm:h-70 md:h-80 lg:h-100">
+        <div className="px-4 w-full h-50 sm:h-70 md:h-80 lg:h-100">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectFade]}
             effect="fade"
             speed={1000}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
-            navigation={true}
+            navigation={{
+              nextEl: ".custom-button-next",
+              prevEl: ".custom-button-prev",
+            }}
             className="mySwiper h-full w-full"
           >
             {slides.map((slide) => (
@@ -50,7 +57,7 @@ const HeroSlider = () => {
                 <div
                   className="relative w-full h-full bg-cover bg-center"
                   style={{
-                    backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${slide.image})`,
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${slide.image})`,
                   }}
                 >
                   <div className="flex flex-col items-center justify-center h-full text-center py-4 px-2">
@@ -70,6 +77,14 @@ const HeroSlider = () => {
                 </div>
               </SwiperSlide>
             ))}
+
+            <div className="custom-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white/80 hover:bg-lime-500 hover:text-white text-lime-500 rounded-full flex items-center justify-center cursor-pointer shadow-md transition-all duration-300">
+              <IoIosArrowBack />
+            </div>
+
+            <div className="custom-button-next absolute right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white/80 hover:bg-lime-500 hover:text-white text-lime-600 rounded-full flex items-center justify-center cursor-pointer shadow-md transition-all duration-300">
+              <IoIosArrowForward />
+            </div>
           </Swiper>
         </div>
       </Container>

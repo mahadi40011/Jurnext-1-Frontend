@@ -12,3 +12,19 @@
 .error {
   @apply text-xs text-red-500 mt-1;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px !important;
+  height: 40px !important;
+  background: white;
+  border-radius: 50%;
+  color: #84cc16 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #84cc16;
+  color: white !important;
+}
